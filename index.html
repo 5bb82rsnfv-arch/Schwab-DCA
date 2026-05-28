@@ -8,19 +8,149 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>DCA Dashboard</title>
 <style>
-:root{--bg:#0f1115;--card:#181b21;--card2:#222631;--line:#2d323d;--text:#f5f5f5;--muted:#a7adb8;--blue:#4a90e2;--green:#7ed321;--orange:#f5a623}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%}
-.wrap{max-width:820px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom))}
-h1{font-size:25px;margin:8px 0 4px}h2{font-size:18px;margin:0 0 12px}h3{font-size:15px;margin:16px 0 8px;color:#d7dbe3}.sub,.small{color:var(--muted)}.sub{margin-bottom:18px}.small{font-size:13px;line-height:1.45}
-.card{background:var(--card);border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 8px 24px rgba(0,0,0,.22)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:var(--card2);border-radius:14px;padding:12px}.label{color:var(--muted);font-size:13px}.value{font-size:22px;font-weight:700;margin-top:3px}
-table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 4px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle}th:first-child,td:first-child{text-align:left}
-input{width:100%;padding:10px;border-radius:10px;border:1px solid #394050;background:#0f1115;color:#fff;font-size:15px;text-align:right}.cash-input{text-align:left;font-size:18px;padding:14px}
-button{width:100%;padding:14px;border:0;border-radius:12px;font-size:16px;font-weight:700;margin-top:10px;background:var(--blue);color:white}.secondary{background:#2a2f3a;color:#d7dbe3}
-.buy{font-size:18px;font-weight:800}.bar{height:12px;background:#2a2f3a;border-radius:999px;overflow:hidden;margin-top:8px;display:flex}.fill-dfus{height:100%;background:var(--blue)}.fill-avuv{height:100%;background:var(--green)}.fill-avnm{height:100%;background:var(--orange)}
-.pill{display:inline-block;padding:5px 8px;border-radius:999px;background:#252a34;margin:3px 4px 3px 0;font-size:12px;color:#c6ccd6}.note{background:#11141a;border-left:3px solid var(--blue);padding:10px 12px;border-radius:10px;color:#c6ccd6;font-size:13px;line-height:1.45}
-.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}.tab{padding:10px 8px;border-radius:999px;background:#252a34;color:#c6ccd6;text-align:center;font-size:13px;font-weight:700}.tab.active{background:var(--blue);color:white}.fund-section{display:none}.fund-section.active{display:block}
-@media(max-width:640px){table{font-size:12px}th,td{padding:8px 3px}input{font-size:13px;padding:8px}.grid{grid-template-columns:1fr}}
+:root {
+  --bg:#0f1115;
+  --card:#181b21;
+  --card2:#222631;
+  --line:#2d323d;
+  --text:#f5f5f5;
+  --muted:#a7adb8;
+  --blue:#4a90e2;
+  --green:#7ed321;
+  --orange:#f5a623;
+  --yellow:#f8c24e;
+  --red:#ff6b6b;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-text-size-adjust:100%;
+}
+.wrap {
+  max-width:820px;
+  margin:0 auto;
+  padding:calc(16px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
+}
+h1 { font-size:25px; margin:8px 0 4px; }
+h2 { font-size:18px; margin:0 0 12px; }
+h3 { font-size:15px; margin:16px 0 8px; color:#d7dbe3; }
+.sub,.small { color:var(--muted); }
+.sub { margin-bottom:18px; }
+.small { font-size:13px; line-height:1.45; }
+.card {
+  background:var(--card);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.22);
+}
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.metric {
+  background:var(--card2);
+  border-radius:14px;
+  padding:12px;
+}
+.label { color:var(--muted); font-size:13px; }
+.value { font-size:22px; font-weight:700; margin-top:3px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th,td { padding:9px 4px; border-bottom:1px solid var(--line); text-align:right; vertical-align:middle; }
+th:first-child,td:first-child { text-align:left; }
+input {
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #394050;
+  background:#0f1115;
+  color:#fff;
+  font-size:15px;
+  text-align:right;
+}
+.cash-input { text-align:left; font-size:18px; padding:14px; }
+button {
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:700;
+  margin-top:10px;
+  background:var(--blue);
+  color:white;
+}
+.secondary { background:#2a2f3a; color:#d7dbe3; }
+.buy { font-size:18px; font-weight:800; }
+.bar {
+  height:13px;
+  background:#2a2f3a;
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:10px;
+  display:flex;
+}
+.fill-avnm { height:100%; background:var(--orange); }
+.fill-avuv { height:100%; background:var(--green); }
+.fill-dfus { height:100%; background:var(--blue); }
+.legend { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+.legend-item { font-size:12px; color:#c6ccd6; display:flex; align-items:center; gap:5px; }
+.dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+.dot-avnm { background:var(--orange); }
+.dot-avuv { background:var(--green); }
+.dot-dfus { background:var(--blue); }
+.pill {
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:999px;
+  background:#252a34;
+  margin:3px 4px 3px 0;
+  font-size:12px;
+  color:#c6ccd6;
+}
+.note {
+  background:#11141a;
+  border-left:3px solid var(--blue);
+  padding:10px 12px;
+  border-radius:10px;
+  color:#c6ccd6;
+  font-size:13px;
+  line-height:1.45;
+}
+.status { font-size:18px; font-weight:800; }
+.green { color:var(--green); }
+.yellow { color:var(--yellow); }
+.red { color:var(--red); }
+.tabs {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+  gap:8px;
+  margin-bottom:12px;
+}
+.tab {
+  padding:10px 8px;
+  border-radius:999px;
+  background:#252a34;
+  color:#c6ccd6;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+}
+.tab.active { background:var(--blue); color:white; }
+.fund-section { display:none; }
+.fund-section.active { display:block; }
+@media(max-width:640px){
+  table { font-size:12px; }
+  th,td { padding:8px 3px; }
+  input { font-size:13px; padding:8px; }
+  .grid { grid-template-columns:1fr; }
+  .tabs { grid-template-columns:1fr 1fr; }
+}
 </style>
 </head>
 <body>
@@ -30,77 +160,451 @@ button{width:100%;padding:14px;border:0;border-radius:12px;font-size:16px;font-w
 
 <div class="card">
 <h2>Manual Holdings Input</h2>
-<div class="small">Edit shares, price, or market value. The field you edit drives the related calculation and your inputs save locally.</div>
+<div class="small">Enter shares and price from Schwab. Market value calculates as shares × price. Tickers are alphabetical.</div>
 <table>
 <tr><th>Holding</th><th>Shares</th><th>Price</th><th>Market Value</th></tr>
-<tr><td>DFUS</td><td><input id="sharesDFUS" type="number" inputmode="decimal" step="0.000001"></td><td><input id="priceDFUS" type="number" inputmode="decimal" step="0.01"></td><td><input id="valueDFUS" type="number" inputmode="decimal" step="0.01"></td></tr>
-<tr><td>AVUV</td><td><input id="sharesAVUV" type="number" inputmode="decimal" step="0.000001"></td><td><input id="priceAVUV" type="number" inputmode="decimal" step="0.01"></td><td><input id="valueAVUV" type="number" inputmode="decimal" step="0.01"></td></tr>
-<tr><td>AVNM</td><td><input id="sharesAVNM" type="number" inputmode="decimal" step="0.000001"></td><td><input id="priceAVNM" type="number" inputmode="decimal" step="0.01"></td><td><input id="valueAVNM" type="number" inputmode="decimal" step="0.01"></td></tr>
+<tr>
+<td>AVNM</td>
+<td><input id="shares_AVNM" type="number" inputmode="decimal" step="0.000001" value="7.833"></td>
+<td><input id="price_AVNM" type="number" inputmode="decimal" step="0.01" value="84.35"></td>
+<td><input id="value_AVNM" type="number" inputmode="decimal" step="0.01" value="660.71"></td>
+</tr>
+<tr>
+<td>AVUV</td>
+<td><input id="shares_AVUV" type="number" inputmode="decimal" step="0.000001" value="1.8174"></td>
+<td><input id="price_AVUV" type="number" inputmode="decimal" step="0.01" value="121.67"></td>
+<td><input id="value_AVUV" type="number" inputmode="decimal" step="0.01" value="221.12"></td>
+</tr>
+<tr>
+<td>DFUS</td>
+<td><input id="shares_DFUS" type="number" inputmode="decimal" step="0.000001" value="16.0997"></td>
+<td><input id="price_DFUS" type="number" inputmode="decimal" step="0.01" value="83.38"></td>
+<td><input id="value_DFUS" type="number" inputmode="decimal" step="0.01" value="1342.39"></td>
+</tr>
 </table>
-<button id="updateBtn">Update Dashboard</button>
+<button id="updateBtn">Calculate / Update Values</button>
 <button class="secondary" id="resetBtn">Reset Saved Inputs</button>
 </div>
 
-<div class="card"><h2>Current Account Snapshot</h2><div class="grid"><div class="metric"><div class="label">Current Invested Value</div><div class="value" id="totalValue">$0.00</div></div><div class="metric"><div class="label">Estimated U.S. / International</div><div class="value" id="usIntl">0.0% / 0.0%</div></div></div></div>
+<div class="card">
+<h2>Cash to Invest</h2>
+<div class="small">Input whatever cash you have available. Buy math uses current invested value + cash to invest.</div>
+<input class="cash-input" id="cashInput" type="number" inputmode="decimal" value="100" min="0" step="0.01">
+<button id="calcBtn">Calculate Buys</button>
+<div class="grid" style="margin-top:10px;">
+<div class="metric"><div class="label">Cash to Invest</div><div class="value" id="cashMetric">$0.00</div></div>
+<div class="metric"><div class="label">Post-Cash Portfolio Value</div><div class="value" id="postCashValue">$0.00</div></div>
+</div>
+</div>
 
-<div class="card"><h2>Cash to Invest</h2><div class="small">Input whatever cash you have available. Buy math uses current invested value + cash to invest.</div><input class="cash-input" id="cashInput" type="number" inputmode="decimal" value="100" min="0" step="0.01"><button id="calcBtn">Calculate Buys</button><div class="grid" style="margin-top:10px;"><div class="metric"><div class="label">Cash to Invest</div><div class="value" id="cashMetric">$0.00</div></div><div class="metric"><div class="label">Post-Cash Portfolio Value</div><div class="value" id="postCashValue">$0.00</div></div></div></div>
+<div class="card">
+<h2>Buy Recommendation</h2>
+<table>
+<tr><th>Holding</th><th>Buy Amount</th><th>Est. Shares</th><th>Post-Buy Weight</th></tr>
+<tr><td>AVNM</td><td class="buy" id="buy_AVNM">$0.00</td><td id="buyShares_AVNM">0.0000</td><td id="post_AVNM">0.0%</td></tr>
+<tr><td>AVUV</td><td class="buy" id="buy_AVUV">$0.00</td><td id="buyShares_AVUV">0.0000</td><td id="post_AVUV">0.0%</td></tr>
+<tr><td>DFUS</td><td class="buy" id="buy_DFUS">$0.00</td><td id="buyShares_DFUS">0.0000</td><td id="post_DFUS">0.0%</td></tr>
+</table>
+<div class="note">Target buy amount = post-cash portfolio value × target allocation − current holding value.</div>
+</div>
 
-<div class="card"><h2>Current Allocation & Drift</h2><table><tr><th>Holding</th><th>Value</th><th>Current</th><th>Target</th><th>Drift</th></tr><tr><td>DFUS</td><td id="allocValueDFUS">$0.00</td><td id="allocPctDFUS">0.0%</td><td>60.0%</td><td id="driftDFUS">0.0%</td></tr><tr><td>AVUV</td><td id="allocValueAVUV">$0.00</td><td id="allocPctAVUV">0.0%</td><td>10.0%</td><td id="driftAVUV">0.0%</td></tr><tr><td>AVNM</td><td id="allocValueAVNM">$0.00</td><td id="allocPctAVNM">0.0%</td><td>30.0%</td><td id="driftAVNM">0.0%</td></tr></table><div class="bar"><div id="barDFUS" class="fill-dfus" style="width:0%"></div><div id="barAVUV" class="fill-avuv" style="width:0%"></div><div id="barAVNM" class="fill-avnm" style="width:0%"></div></div></div>
+<div class="card">
+<h2>Current Account Snapshot</h2>
+<div class="grid">
+<div class="metric"><div class="label">Current Invested Value</div><div class="value" id="totalValue">$0.00</div></div>
+<div class="metric"><div class="label">Estimated U.S. / International</div><div class="value" id="usIntl">0.0% / 0.0%</div></div>
+</div>
+</div>
 
-<div class="card"><h2>Buy Recommendation</h2><table><tr><th>Holding</th><th>Buy Amount</th><th>Est. Shares</th><th>Post-Buy Weight</th></tr><tr><td>DFUS</td><td class="buy" id="buyDFUS">$0.00</td><td id="buySharesDFUS">0.0000</td><td id="postDFUS">0.0%</td></tr><tr><td>AVUV</td><td class="buy" id="buyAVUV">$0.00</td><td id="buySharesAVUV">0.0000</td><td id="postAVUV">0.0%</td></tr><tr><td>AVNM</td><td class="buy" id="buyAVNM">$0.00</td><td id="buySharesAVNM">0.0000</td><td id="postAVNM">0.0%</td></tr></table><div class="note">Target buy amount = post-cash portfolio value × target allocation − current holding value.</div></div>
+<div class="card">
+<h2>Portfolio Status</h2>
+<div class="grid">
+<div class="metric"><div class="label">Allocation Status</div><div class="value status" id="allocationStatus">Aligned</div></div>
+<div class="metric"><div class="label">Largest Drift</div><div class="value" id="largestDrift">0.0%</div></div>
+<div class="metric"><div class="label">Most Underweight</div><div class="value" id="mostUnderweight">None</div></div>
+<div class="metric"><div class="label">Action</div><div class="value" id="statusAction">Normal buys</div></div>
+</div>
+<div class="note" style="margin-top:12px;">Thresholds: green = within 2% drift, yellow = 2-5% drift, red = over 5% drift.</div>
+</div>
 
-<div class="card"><h2>Milestones</h2><table><tr><th>Goal</th><th>Approx. More Contributions at Current Cash Amount</th></tr><tr><td>$5,000</td><td id="m5">N/A</td></tr><tr><td>$10,000</td><td id="m10">N/A</td></tr><tr><td>$25,000</td><td id="m25">N/A</td></tr></table></div>
+<div class="card">
+<h2>Current Allocation & Drift</h2>
+<table>
+<tr><th>Holding</th><th>Value</th><th>Current</th><th>Target</th><th>Drift</th></tr>
+<tr><td><span class="dot dot-avnm"></span> AVNM</td><td id="allocValue_AVNM">$0.00</td><td id="allocPct_AVNM">0.0%</td><td>30.0%</td><td id="drift_AVNM">0.0%</td></tr>
+<tr><td><span class="dot dot-avuv"></span> AVUV</td><td id="allocValue_AVUV">$0.00</td><td id="allocPct_AVUV">0.0%</td><td>10.0%</td><td id="drift_AVUV">0.0%</td></tr>
+<tr><td><span class="dot dot-dfus"></span> DFUS</td><td id="allocValue_DFUS">$0.00</td><td id="allocPct_DFUS">0.0%</td><td>60.0%</td><td id="drift_DFUS">0.0%</td></tr>
+</table>
+<div class="bar">
+<div id="bar_AVNM" class="fill-avnm" style="width:0%"></div>
+<div id="bar_AVUV" class="fill-avuv" style="width:0%"></div>
+<div id="bar_DFUS" class="fill-dfus" style="width:0%"></div>
+</div>
+<div class="legend">
+<span class="legend-item"><span class="dot dot-avnm"></span>AVNM</span>
+<span class="legend-item"><span class="dot dot-avuv"></span>AVUV</span>
+<span class="legend-item"><span class="dot dot-dfus"></span>DFUS</span>
+</div>
+</div>
 
-<div class="card"><h2>Portfolio Exposure Analysis</h2><div class="grid"><div class="metric"><div class="label">Estimated U.S. Equity</div><div class="value" id="usEquity">0.0%</div></div><div class="metric"><div class="label">Estimated International Equity</div><div class="value" id="intlEquity">0.0%</div></div></div><h3>Role of Each Holding</h3><span class="pill">DFUS: U.S. total market core</span><span class="pill">AVUV: U.S. small value tilt</span><span class="pill">AVNM: International value/profitability tilt</span></div>
+<div class="card">
+<h2>Milestones</h2>
+<table>
+<tr><th>Goal</th><th>Additional Contributions Needed</th></tr>
+<tr><td>$5,000</td><td id="m5">N/A</td></tr>
+<tr><td>$10,000</td><td id="m10">N/A</td></tr>
+<tr><td>$25,000</td><td id="m25">N/A</td></tr>
+</table>
+<div class="small">Based on the current cash-to-invest amount. Market movement is not included.</div>
+</div>
 
-<div class="card"><h2>Fund-by-Fund Look-Through</h2><div class="note">Directional only. Top holdings and sector weights change. Account weights update based on current fund weights above.</div><div class="tabs"><div class="tab active" data-tab="dfusSec">DFUS</div><div class="tab" data-tab="avuvSec">AVUV</div><div class="tab" data-tab="avnmSec">AVNM</div></div>
-<div id="dfusSec" class="fund-section active"><h3>DFUS: U.S. Equity Market Core</h3><table><tr><th>Top Holding</th><th>Weight in Fund</th><th>Approx. Account Weight</th></tr><tr><td>NVIDIA</td><td>~7.0%</td><td id="dfus_nvda">~0.0%</td></tr><tr><td>Apple</td><td>~5.8%</td><td id="dfus_aapl">~0.0%</td></tr><tr><td>Microsoft</td><td>~4.5%</td><td id="dfus_msft">~0.0%</td></tr><tr><td>Amazon</td><td>~3.8%</td><td id="dfus_amzn">~0.0%</td></tr><tr><td>Alphabet</td><td>~3.2%</td><td id="dfus_googl">~0.0%</td></tr></table><h3>DFUS Sector Breakdown</h3><table><tr><th>Sector</th><th>Approx. Fund Weight</th><th>Approx. Account Weight</th></tr><tr><td>Information Technology</td><td>~30%</td><td id="dfus_sec_tech">~0.0%</td></tr><tr><td>Financials</td><td>~14%</td><td id="dfus_sec_fin">~0.0%</td></tr><tr><td>Health Care</td><td>~11%</td><td id="dfus_sec_hc">~0.0%</td></tr><tr><td>Consumer Discretionary</td><td>~10%</td><td id="dfus_sec_cd">~0.0%</td></tr><tr><td>Communication Services</td><td>~9%</td><td id="dfus_sec_comm">~0.0%</td></tr><tr><td>Industrials</td><td>~8%</td><td id="dfus_sec_ind">~0.0%</td></tr></table></div>
-<div id="avuvSec" class="fund-section"><h3>AVUV: U.S. Small Cap Value</h3><table><tr><th>Top Holding</th><th>Weight in Fund</th><th>Approx. Account Weight</th></tr><tr><td>Viasat</td><td>~1.30%</td><td id="avuv_vsat">~0.0%</td></tr><tr><td>Matson</td><td>~0.99%</td><td id="avuv_matx">~0.0%</td></tr><tr><td>SM Energy</td><td>~0.96%</td><td id="avuv_sm">~0.0%</td></tr><tr><td>Lear</td><td>~0.88%</td><td id="avuv_lea">~0.0%</td></tr><tr><td>Avnet</td><td>~0.86%</td><td id="avuv_avt">~0.0%</td></tr></table><h3>AVUV Sector Breakdown</h3><table><tr><th>Sector</th><th>Approx. Fund Weight</th><th>Approx. Account Weight</th></tr><tr><td>Financials</td><td>~25%</td><td id="avuv_sec_fin">~0.0%</td></tr><tr><td>Industrials</td><td>~18%</td><td id="avuv_sec_ind">~0.0%</td></tr><tr><td>Consumer Discretionary</td><td>~15%</td><td id="avuv_sec_cd">~0.0%</td></tr><tr><td>Energy</td><td>~12%</td><td id="avuv_sec_energy">~0.0%</td></tr><tr><td>Materials</td><td>~9%</td><td id="avuv_sec_mat">~0.0%</td></tr><tr><td>Information Technology</td><td>~8%</td><td id="avuv_sec_tech">~0.0%</td></tr></table></div>
-<div id="avnmSec" class="fund-section"><h3>AVNM: International Fund-of-Funds</h3><table><tr><th>Underlying Fund</th><th>Weight in AVNM</th><th>Approx. Account Weight</th></tr><tr><td>AVDE</td><td>~39.7%</td><td id="avnm_avde">~0.0%</td></tr><tr><td>AVIV</td><td>~20.1%</td><td id="avnm_aviv">~0.0%</td></tr><tr><td>AVEM</td><td>~18.9%</td><td id="avnm_avem">~0.0%</td></tr><tr><td>AVES</td><td>~10.3%</td><td id="avnm_aves">~0.0%</td></tr><tr><td>AVDV</td><td>~7.4%</td><td id="avnm_avdv">~0.0%</td></tr><tr><td>AVEE</td><td>~1.8%</td><td id="avnm_avee">~0.0%</td></tr><tr><td>AVDS</td><td>~1.7%</td><td id="avnm_avds">~0.0%</td></tr></table><h3>AVNM Country Breakdown</h3><table><tr><th>Country</th><th>Weight in AVNM</th><th>Approx. Account Weight</th></tr><tr><td>Japan</td><td>15.5%</td><td id="avnm_japan">~0.0%</td></tr><tr><td>United Kingdom</td><td>9.3%</td><td id="avnm_uk">~0.0%</td></tr><tr><td>Canada</td><td>8.7%</td><td id="avnm_canada">~0.0%</td></tr><tr><td>China</td><td>6.9%</td><td id="avnm_china">~0.0%</td></tr><tr><td>Taiwan</td><td>6.7%</td><td id="avnm_taiwan">~0.0%</td></tr></table><h3>AVNM Sector Breakdown</h3><table><tr><th>Sector</th><th>Approx. Fund Weight</th><th>Approx. Account Weight</th></tr><tr><td>Financials</td><td>~24%</td><td id="avnm_sec_fin">~0.0%</td></tr><tr><td>Industrials</td><td>~16%</td><td id="avnm_sec_ind">~0.0%</td></tr><tr><td>Consumer Discretionary</td><td>~12%</td><td id="avnm_sec_cd">~0.0%</td></tr><tr><td>Information Technology</td><td>~11%</td><td id="avnm_sec_tech">~0.0%</td></tr><tr><td>Materials</td><td>~10%</td><td id="avnm_sec_mat">~0.0%</td></tr><tr><td>Health Care</td><td>~8%</td><td id="avnm_sec_hc">~0.0%</td></tr></table></div></div>
+<div class="card">
+<h2>Portfolio Exposure Analysis</h2>
+<div class="grid">
+<div class="metric"><div class="label">Estimated U.S. Equity</div><div class="value" id="usEquity">0.0%</div></div>
+<div class="metric"><div class="label">Estimated International Equity</div><div class="value" id="intlEquity">0.0%</div></div>
+</div>
+<h3>Role of Each Holding</h3>
+<span class="pill">DFUS: U.S. total market core</span>
+<span class="pill">AVUV: U.S. small value tilt</span>
+<span class="pill">AVNM: International value/profitability tilt</span>
+</div>
+
+<div class="card">
+<h2>Fund-by-Fund Look-Through</h2>
+<div class="note">Directional only. Top holdings and sector weights change. Account weights update based on current fund weights above.</div>
+<div class="tabs">
+<button type="button" class="tab active" data-tab="comboSec">Combined</button>
+<button type="button" class="tab" data-tab="avnmSec">AVNM</button>
+<button type="button" class="tab" data-tab="avuvSec">AVUV</button>
+<button type="button" class="tab" data-tab="dfusSec">DFUS</button>
+</div>
+
+<div id="comboSec" class="fund-section active">
+<h3>Combined Portfolio Look-Through</h3>
+<table>
+<tr><th>Exposure</th><th>Approx. Account Weight</th></tr>
+<tr><td>U.S. Broad Market Core</td><td id="combo_uscore">0.0%</td></tr>
+<tr><td>U.S. Small Value Tilt</td><td id="combo_usvalue">0.0%</td></tr>
+<tr><td>International Equity</td><td id="combo_intl">0.0%</td></tr>
+</table>
+<h3>Combined Sector Breakdown</h3>
+<table>
+<tr><th>Sector</th><th>Approx. Account Weight</th></tr>
+<tr><td>Information Technology</td><td id="combo_sec_tech">~0.0%</td></tr>
+<tr><td>Financials</td><td id="combo_sec_fin">~0.0%</td></tr>
+<tr><td>Industrials</td><td id="combo_sec_ind">~0.0%</td></tr>
+<tr><td>Consumer Discretionary</td><td id="combo_sec_cd">~0.0%</td></tr>
+<tr><td>Health Care</td><td id="combo_sec_hc">~0.0%</td></tr>
+<tr><td>Materials</td><td id="combo_sec_mat">~0.0%</td></tr>
+</table>
+<h3>Largest Approx. Single-Name / Country Exposures</h3>
+<table>
+<tr><th>Name</th><th>Main Source</th><th>Approx. Account Weight</th></tr>
+<tr><td>NVIDIA</td><td>DFUS</td><td id="combo_nvda">~0.0%</td></tr>
+<tr><td>Apple</td><td>DFUS</td><td id="combo_aapl">~0.0%</td></tr>
+<tr><td>Microsoft</td><td>DFUS</td><td id="combo_msft">~0.0%</td></tr>
+<tr><td>Amazon</td><td>DFUS</td><td id="combo_amzn">~0.0%</td></tr>
+<tr><td>Japan</td><td>AVNM country</td><td id="combo_japan">~0.0%</td></tr>
+</table>
+</div>
+
+<div id="avnmSec" class="fund-section">
+<h3>AVNM: International Fund-of-Funds</h3>
+<table>
+<tr><th>Underlying Fund</th><th>Weight in AVNM</th><th>Approx. Account Weight</th></tr>
+<tr><td>AVDE</td><td>~39.7%</td><td id="avnm_avde">~0.0%</td></tr>
+<tr><td>AVIV</td><td>~20.1%</td><td id="avnm_aviv">~0.0%</td></tr>
+<tr><td>AVEM</td><td>~18.9%</td><td id="avnm_avem">~0.0%</td></tr>
+<tr><td>AVES</td><td>~10.3%</td><td id="avnm_aves">~0.0%</td></tr>
+<tr><td>AVDV</td><td>~7.4%</td><td id="avnm_avdv">~0.0%</td></tr>
+</table>
+<h3>AVNM Country Breakdown</h3>
+<table>
+<tr><th>Country</th><th>Weight in AVNM</th><th>Approx. Account Weight</th></tr>
+<tr><td>Japan</td><td>15.5%</td><td id="avnm_japan">~0.0%</td></tr>
+<tr><td>United Kingdom</td><td>9.3%</td><td id="avnm_uk">~0.0%</td></tr>
+<tr><td>Canada</td><td>8.7%</td><td id="avnm_canada">~0.0%</td></tr>
+<tr><td>China</td><td>6.9%</td><td id="avnm_china">~0.0%</td></tr>
+<tr><td>Taiwan</td><td>6.7%</td><td id="avnm_taiwan">~0.0%</td></tr>
+</table>
+</div>
+
+<div id="avuvSec" class="fund-section">
+<h3>AVUV: U.S. Small Cap Value</h3>
+<table>
+<tr><th>Top Holding</th><th>Weight in Fund</th><th>Approx. Account Weight</th></tr>
+<tr><td>Viasat</td><td>~1.30%</td><td id="avuv_vsat">~0.0%</td></tr>
+<tr><td>Matson</td><td>~0.99%</td><td id="avuv_matx">~0.0%</td></tr>
+<tr><td>SM Energy</td><td>~0.96%</td><td id="avuv_sm">~0.0%</td></tr>
+<tr><td>Lear</td><td>~0.88%</td><td id="avuv_lea">~0.0%</td></tr>
+<tr><td>Avnet</td><td>~0.86%</td><td id="avuv_avt">~0.0%</td></tr>
+</table>
+<h3>AVUV Sector Breakdown</h3>
+<table>
+<tr><th>Sector</th><th>Approx. Fund Weight</th><th>Approx. Account Weight</th></tr>
+<tr><td>Financials</td><td>~25%</td><td id="avuv_sec_fin">~0.0%</td></tr>
+<tr><td>Industrials</td><td>~18%</td><td id="avuv_sec_ind">~0.0%</td></tr>
+<tr><td>Consumer Discretionary</td><td>~15%</td><td id="avuv_sec_cd">~0.0%</td></tr>
+<tr><td>Energy</td><td>~12%</td><td id="avuv_sec_energy">~0.0%</td></tr>
+<tr><td>Materials</td><td>~9%</td><td id="avuv_sec_mat">~0.0%</td></tr>
+<tr><td>Information Technology</td><td>~8%</td><td id="avuv_sec_tech">~0.0%</td></tr>
+</table>
+</div>
+
+<div id="dfusSec" class="fund-section">
+<h3>DFUS: U.S. Equity Market Core</h3>
+<table>
+<tr><th>Top Holding</th><th>Weight in Fund</th><th>Approx. Account Weight</th></tr>
+<tr><td>NVIDIA</td><td>~7.0%</td><td id="dfus_nvda">~0.0%</td></tr>
+<tr><td>Apple</td><td>~5.8%</td><td id="dfus_aapl">~0.0%</td></tr>
+<tr><td>Microsoft</td><td>~4.5%</td><td id="dfus_msft">~0.0%</td></tr>
+<tr><td>Amazon</td><td>~3.8%</td><td id="dfus_amzn">~0.0%</td></tr>
+<tr><td>Alphabet</td><td>~3.2%</td><td id="dfus_googl">~0.0%</td></tr>
+</table>
+<h3>DFUS Sector Breakdown</h3>
+<table>
+<tr><th>Sector</th><th>Approx. Fund Weight</th><th>Approx. Account Weight</th></tr>
+<tr><td>Information Technology</td><td>~30%</td><td id="dfus_sec_tech">~0.0%</td></tr>
+<tr><td>Financials</td><td>~14%</td><td id="dfus_sec_fin">~0.0%</td></tr>
+<tr><td>Health Care</td><td>~11%</td><td id="dfus_sec_hc">~0.0%</td></tr>
+<tr><td>Consumer Discretionary</td><td>~10%</td><td id="dfus_sec_cd">~0.0%</td></tr>
+<tr><td>Communication Services</td><td>~9%</td><td id="dfus_sec_comm">~0.0%</td></tr>
+<tr><td>Industrials</td><td>~8%</td><td id="dfus_sec_ind">~0.0%</td></tr>
+</table>
+</div>
+</div>
 </div>
 
 <script>
 (function(){
-var defaults={sharesDFUS:16.099144,priceDFUS:81.76,valueDFUS:1316.31,sharesAVUV:1.817716,priceAVUV:121.02,valueAVUV:219.94,sharesAVNM:7.832958,priceAVNM:84.35,valueAVNM:660.71,cashInput:100};
-var keys=Object.keys(defaults), tickers=["DFUS","AVUV","AVNM"], targets={DFUS:.60,AVUV:.10,AVNM:.30};
-function id(x){return document.getElementById(x)} function num(x){var v=parseFloat(id(x).value);return isFinite(v)?v:0}
-function txt(x,v){var e=id(x);if(e)e.textContent=v} function dollars(x){return "$"+(x||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
-function pct(x){return ((x||0)*100).toFixed(1)+"%"} function apct(x){return "~"+((x||0)*100).toFixed(1)+"%"} function spct(x){return (x>=0?"+":"")+pct(x)}
-function save(){keys.forEach(function(k){localStorage.setItem("dca_"+k,id(k).value)})}
-function load(){keys.forEach(function(k){var s=localStorage.getItem("dca_"+k);id(k).value=s!==null?s:defaults[k]})}
-function sync(t,field){
- var sh=num("shares"+t), pr=num("price"+t), val=num("value"+t);
- if(field==="shares"||field==="price"){val=sh*pr;id("value"+t).value=val.toFixed(2)}
- if(field==="value"&&sh>0){pr=val/sh;id("price"+t).value=pr.toFixed(2)}
- return {shares:sh,price:pr,value:val}
-}
-function read(t){return {shares:num("shares"+t),price:num("price"+t),value:num("value"+t)}}
-function contrib(goal,total,cash){if(cash<=0)return"N/A";if(total>=goal)return"Reached";return Math.ceil((goal-total)/cash)+" more"}
-function look(prefix,w,o){Object.keys(o).forEach(function(k){txt(prefix+k,apct(w*o[k]))})}
-function calc(){
- save();
- var dfus=read("DFUS"),avuv=read("AVUV"),avnm=read("AVNM"),cash=num("cashInput");
- var total=dfus.value+avuv.value+avnm.value, postTotal=total+cash;
- var values={DFUS:dfus.value,AVUV:avuv.value,AVNM:avnm.value}, prices={DFUS:dfus.price,AVUV:avuv.price,AVNM:avnm.price};
- var weights={DFUS:total?dfus.value/total:0,AVUV:total?avuv.value/total:0,AVNM:total?avnm.value/total:0};
- txt("totalValue",dollars(total));txt("cashMetric",dollars(cash));txt("postCashValue",dollars(postTotal));
- tickers.forEach(function(t){txt("allocValue"+t,dollars(values[t]));txt("allocPct"+t,pct(weights[t]));txt("drift"+t,spct(weights[t]-targets[t]));id("bar"+t).style.width=Math.max(0,Math.min(100,weights[t]*100))+"%"});
- var gaps={},gapTotal=0;tickers.forEach(function(t){gaps[t]=Math.max(0,postTotal*targets[t]-values[t]);gapTotal+=gaps[t]});
- tickers.forEach(function(t){var buy=gapTotal?cash*gaps[t]/gapTotal:0,shares=prices[t]?buy/prices[t]:0,postW=postTotal?(values[t]+buy)/postTotal:0;txt("buy"+t,dollars(buy));txt("buyShares"+t,shares.toFixed(4));txt("post"+t,pct(postW))});
- var us=total?(dfus.value+avuv.value)/total:0,intl=total?avnm.value/total:0;txt("usIntl",pct(us)+" / "+pct(intl));txt("usEquity",pct(us));txt("intlEquity",pct(intl));
- txt("m5",contrib(5000,total,cash));txt("m10",contrib(10000,total,cash));txt("m25",contrib(25000,total,cash));
- look("dfus_",weights.DFUS,{nvda:.070,aapl:.058,msft:.045,amzn:.038,googl:.032,sec_tech:.30,sec_fin:.14,sec_hc:.11,sec_cd:.10,sec_comm:.09,sec_ind:.08});
- look("avuv_",weights.AVUV,{vsat:.0130,matx:.0099,sm:.0096,lea:.0088,avt:.0086,sec_fin:.25,sec_ind:.18,sec_cd:.15,sec_energy:.12,sec_mat:.09,sec_tech:.08});
- look("avnm_",weights.AVNM,{avde:.397,aviv:.201,avem:.189,aves:.103,avdv:.074,avee:.018,avds:.017,japan:.155,uk:.093,canada:.087,china:.069,taiwan:.067,sec_fin:.24,sec_ind:.16,sec_cd:.12,sec_tech:.11,sec_mat:.10,sec_hc:.08});
-}
-function reset(){keys.forEach(function(k){localStorage.removeItem("dca_"+k);id(k).value=defaults[k]});calc()}
-function initTabs(){document.querySelectorAll(".tab").forEach(function(tab){tab.addEventListener("click",function(){document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active")});document.querySelectorAll(".fund-section").forEach(function(s){s.classList.remove("active")});tab.classList.add("active");id(tab.getAttribute("data-tab")).classList.add("active")})})}
-function init(){
- load();
- tickers.forEach(function(t){["shares","price","value"].forEach(function(f){id(f+t).addEventListener("input",function(){sync(t,f);calc()});id(f+t).addEventListener("change",function(){sync(t,f);calc()})})});
- id("cashInput").addEventListener("input",calc);id("cashInput").addEventListener("change",calc);id("updateBtn").addEventListener("click",calc);id("calcBtn").addEventListener("click",calc);id("resetBtn").addEventListener("click",reset);initTabs();calc();
-}
-if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init)}else{init()}
+  var tickers = ["AVNM","AVUV","DFUS"];
+  var targets = { AVNM:0.30, AVUV:0.10, DFUS:0.60 };
+  var defaults = {
+    shares_AVNM:7.833, price_AVNM:84.35, value_AVNM:660.71,
+    shares_AVUV:1.8174, price_AVUV:121.67, value_AVUV:221.12,
+    shares_DFUS:16.0997, price_DFUS:83.38, value_DFUS:1342.39,
+    cashInput:100
+  };
+  var fieldTouched = { AVNM:"price", AVUV:"price", DFUS:"price" };
+
+  function byId(id){ return document.getElementById(id); }
+  function getNum(id){
+    var el = byId(id);
+    if(!el) return 0;
+    var v = parseFloat(el.value);
+    return isFinite(v) ? v : 0;
+  }
+  function setVal(id, v){
+    var el = byId(id);
+    if(el) el.value = v;
+  }
+  function setText(id, v){
+    var el = byId(id);
+    if(el) el.textContent = v;
+  }
+  function money(x){
+    return "$" + (x || 0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function pct(x){ return ((x || 0) * 100).toFixed(1) + "%"; }
+  function apct(x){ return "~" + ((x || 0) * 100).toFixed(1) + "%"; }
+  function spct(x){ return (x >= 0 ? "+" : "") + pct(x); }
+
+  function saveInputs(){
+    Object.keys(defaults).forEach(function(k){
+      var el = byId(k);
+      if(el) localStorage.setItem("dca_" + k, el.value);
+    });
+  }
+
+  function loadInputs(){
+    Object.keys(defaults).forEach(function(k){
+      var el = byId(k);
+      if(!el) return;
+      var saved = localStorage.getItem("dca_" + k);
+      el.value = saved !== null ? saved : defaults[k];
+    });
+  }
+
+  function syncTicker(t){
+    var shares = getNum("shares_" + t);
+    var price = getNum("price_" + t);
+    var value = getNum("value_" + t);
+
+    if((fieldTouched[t] === "shares" || fieldTouched[t] === "price") && shares > 0 && price > 0){
+      value = shares * price;
+      setVal("value_" + t, value.toFixed(2));
+    } else if(fieldTouched[t] === "value" && shares > 0 && value > 0){
+      price = value / shares;
+      setVal("price_" + t, price.toFixed(2));
+    } else if(value === 0 && shares > 0 && price > 0){
+      value = shares * price;
+      setVal("value_" + t, value.toFixed(2));
+    }
+
+    return {
+      shares:getNum("shares_" + t),
+      price:getNum("price_" + t),
+      value:getNum("value_" + t)
+    };
+  }
+
+  function contributions(goal,total,cash){
+    if(cash <= 0) return "N/A";
+    if(total >= goal) return "Reached";
+    return Math.ceil((goal-total)/cash) + " more";
+  }
+
+  function statusClass(maxAbs){
+    if(maxAbs < 0.02) return ["green","Aligned","Normal buys"];
+    if(maxAbs < 0.05) return ["yellow","Mild Drift","Prioritize underweight"];
+    return ["red","High Drift","Review allocation"];
+  }
+
+  function look(prefix,w,obj){
+    Object.keys(obj).forEach(function(k){ setText(prefix + k, apct(w * obj[k])); });
+  }
+
+  function calculate(){
+    var data = {};
+    tickers.forEach(function(t){ data[t] = syncTicker(t); });
+
+    var cash = getNum("cashInput");
+    var total = data.AVNM.value + data.AVUV.value + data.DFUS.value;
+    var postTotal = total + cash;
+
+    var weights = {
+      AVNM: total ? data.AVNM.value / total : 0,
+      AVUV: total ? data.AVUV.value / total : 0,
+      DFUS: total ? data.DFUS.value / total : 0
+    };
+
+    saveInputs();
+
+    setText("totalValue", money(total));
+    setText("cashMetric", money(cash));
+    setText("postCashValue", money(postTotal));
+
+    var us = total ? (data.AVUV.value + data.DFUS.value) / total : 0;
+    var intl = total ? data.AVNM.value / total : 0;
+    setText("usIntl", pct(us) + " / " + pct(intl));
+    setText("usEquity", pct(us));
+    setText("intlEquity", pct(intl));
+
+    var maxAbs = 0, maxTicker = "AVNM", underTicker = "None", underAmt = 0;
+    tickers.forEach(function(t){
+      var drift = weights[t] - targets[t];
+      var absDrift = Math.abs(drift);
+      var currentGap = Math.max(0, total * targets[t] - data[t].value);
+      if(absDrift > maxAbs){ maxAbs = absDrift; maxTicker = t; }
+      if(currentGap > underAmt){ underAmt = currentGap; underTicker = t; }
+
+      setText("allocValue_" + t, money(data[t].value));
+      setText("allocPct_" + t, pct(weights[t]));
+      setText("drift_" + t, spct(drift));
+      byId("bar_" + t).style.width = Math.max(0, Math.min(100, weights[t]*100)) + "%";
+    });
+
+    var st = statusClass(maxAbs);
+    byId("allocationStatus").className = "value status " + st[0];
+    setText("allocationStatus", st[1]);
+    setText("largestDrift", maxTicker + " " + spct(weights[maxTicker] - targets[maxTicker]));
+    setText("mostUnderweight", underTicker === "None" ? "None" : underTicker + " " + money(underAmt));
+    setText("statusAction", st[2]);
+
+    var gaps = {}, gapTotal = 0;
+    tickers.forEach(function(t){
+      gaps[t] = Math.max(0, postTotal * targets[t] - data[t].value);
+      gapTotal += gaps[t];
+    });
+
+    tickers.forEach(function(t){
+      var buy = gapTotal ? cash * gaps[t] / gapTotal : 0;
+      var shares = data[t].price ? buy / data[t].price : 0;
+      var postWeight = postTotal ? (data[t].value + buy) / postTotal : 0;
+      setText("buy_" + t, money(buy));
+      setText("buyShares_" + t, shares.toFixed(4));
+      setText("post_" + t, pct(postWeight));
+    });
+
+    setText("m5", contributions(5000,total,cash));
+    setText("m10", contributions(10000,total,cash));
+    setText("m25", contributions(25000,total,cash));
+
+    look("dfus_", weights.DFUS, {
+      nvda:.070, aapl:.058, msft:.045, amzn:.038, googl:.032,
+      sec_tech:.30, sec_fin:.14, sec_hc:.11, sec_cd:.10, sec_comm:.09, sec_ind:.08
+    });
+    look("avuv_", weights.AVUV, {
+      vsat:.0130, matx:.0099, sm:.0096, lea:.0088, avt:.0086,
+      sec_fin:.25, sec_ind:.18, sec_cd:.15, sec_energy:.12, sec_mat:.09, sec_tech:.08
+    });
+    look("avnm_", weights.AVNM, {
+      avde:.397, aviv:.201, avem:.189, aves:.103, avdv:.074,
+      japan:.155, uk:.093, canada:.087, china:.069, taiwan:.067
+    });
+
+    setText("combo_uscore", pct(weights.DFUS));
+    setText("combo_usvalue", pct(weights.AVUV));
+    setText("combo_intl", pct(weights.AVNM));
+    setText("combo_sec_tech", apct(weights.DFUS*.30 + weights.AVUV*.08 + weights.AVNM*.11));
+    setText("combo_sec_fin", apct(weights.DFUS*.14 + weights.AVUV*.25 + weights.AVNM*.24));
+    setText("combo_sec_ind", apct(weights.DFUS*.08 + weights.AVUV*.18 + weights.AVNM*.16));
+    setText("combo_sec_cd", apct(weights.DFUS*.10 + weights.AVUV*.15 + weights.AVNM*.12));
+    setText("combo_sec_hc", apct(weights.DFUS*.11 + weights.AVNM*.08));
+    setText("combo_sec_mat", apct(weights.AVUV*.09 + weights.AVNM*.10));
+    setText("combo_nvda", apct(weights.DFUS*.070));
+    setText("combo_aapl", apct(weights.DFUS*.058));
+    setText("combo_msft", apct(weights.DFUS*.045));
+    setText("combo_amzn", apct(weights.DFUS*.038));
+    setText("combo_japan", apct(weights.AVNM*.155));
+  }
+
+  function reset(){
+    Object.keys(defaults).forEach(function(k){
+      localStorage.removeItem("dca_" + k);
+      var el = byId(k);
+      if(el) el.value = defaults[k];
+    });
+    fieldTouched = { AVNM:"price", AVUV:"price", DFUS:"price" };
+    calculate();
+  }
+
+  function setupTabs(){
+    document.querySelectorAll(".tab").forEach(function(tab){
+      tab.addEventListener("click", function(e){
+        e.preventDefault();
+        document.querySelectorAll(".tab").forEach(function(t){ t.classList.remove("active"); });
+        document.querySelectorAll(".fund-section").forEach(function(s){ s.classList.remove("active"); });
+        tab.classList.add("active");
+        byId(tab.getAttribute("data-tab")).classList.add("active");
+      });
+    });
+  }
+
+  function setup(){
+    loadInputs();
+    tickers.forEach(function(t){
+      ["shares","price","value"].forEach(function(field){
+        var el = byId(field + "_" + t);
+        el.addEventListener("input", function(){ fieldTouched[t] = field; calculate(); });
+        el.addEventListener("change", function(){ fieldTouched[t] = field; calculate(); });
+      });
+    });
+    byId("cashInput").addEventListener("input", calculate);
+    byId("cashInput").addEventListener("change", calculate);
+    byId("updateBtn").addEventListener("click", calculate);
+    byId("calcBtn").addEventListener("click", calculate);
+    byId("resetBtn").addEventListener("click", reset);
+    setupTabs();
+    calculate();
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", setup);
+  } else {
+    setup();
+  }
 })();
 </script>
 </body>
